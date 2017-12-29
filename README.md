@@ -23,14 +23,18 @@ hb-base proposes the structure of a deep learning project. Using TensorFlow's hi
 ## Why?
 
 - There are many boilerplate codes when creating a new deep learning project.
-- Recommend using higher APIs ([Estimator](https://www.tensorflow.org/api_docs/python/tf/estimator/Estimator), [Experiment](https://www.tensorflow.org/api_docs/python/tf/contrib/learn/Experiment), [Dataset](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) and [tf.metrics](https://www.tensorflow.org/api_docs/python/tf/metrics))
-- You can focus the core (model's graph).
+- Recommend using **higher APIs** ([Estimator](https://www.tensorflow.org/api_docs/python/tf/estimator/Estimator), [Experiment](https://www.tensorflow.org/api_docs/python/tf/contrib/learn/Experiment), [Dataset](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) and [tf.metrics](https://www.tensorflow.org/api_docs/python/tf/metrics))
+- You can **focus the core** (model's graph).
+- The training or evaluate results are automatically applied to the **TensorBoard**.
+- When terminated learning, you can receive a notificatio with a Slack.
 
 ## Requirements
 
 - Python 3.6
 - TensorFlow 1.4
 - [hb-config](https://github.com/hb-research/hb-config) (Singleton Config)
+- requests
+- [Slack Incoming Webhook URL](https://my.slack.com/services/new/incoming-webhook/)
 
 ## Project Structure
 
