@@ -19,25 +19,20 @@ class Model:
         self.mode = mode
         self.params = params
 
+        self.loss, self.train_op, self.eval_metric_ops, self.predictions = None, None, None, None
         self._init_placeholder(features, labels)
         self.build_graph()
 
-        if self.mode == tf.estimator.ModeKeys.TRAIN:
-            return tf.estimator.EstimatorSpec(
-                mode=mode,
-                loss=self.loss,
-                train_op=self.train_op)
+        # train mode: required loss and train_op
+        # eval mode: required loss
+        # predict mode: required predictions
 
-        elif self.mode == tf.estimator.ModeKeys.EVAL:
-            return tf.estimator.EstimatorSpec(
-                mode=mode,
-                loss=self.loss,
-                eval_metric_ops=self._build_metric())
-
-        elif self.mode == tf.estimator.ModeKeys.PREDICT:
-            return tf.estimator.EstimatorSpec(
-                mode=mode,
-                predictions=self.predictions)
+        return tf.estimator.EstimatorSpec(
+            mode=mode,
+            loss=self.loss,
+            train_op=self.train_op,
+            eval_metric_ops=self._build_metric(),
+            predictions=self.predictions)
 
     def _init_placeholder(self, features, labels):
         self.inputs = features
