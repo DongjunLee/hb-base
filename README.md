@@ -49,7 +49,8 @@ hb-base proposes the structure of a deep learning project. Using TensorFlow's hi
     ├── data_loader.py          # data_reader, preprocessing, make_batch
     ├── hook.py                 # training or test hook feature (eg. print_variables, handle training config)
     ├── main.py                 # define experiment_fn (enable tfdbg)
-    └── model.py                # define EstimatorSpec      
+    ├── model.py                # define EstimatorSpec      
+    └── utils.py                # slack notification (incoming-webhook)
 
 Reference : [hb-config](https://github.com/hb-research/hb-config), [Dataset](https://www.tensorflow.org/api_docs/python/tf/data/Dataset#from_generator), [experiments_fn](https://www.tensorflow.org/api_docs/python/tf/contrib/learn/Experiment), [EstimatorSpec](https://www.tensorflow.org/api_docs/python/tf/estimator/EstimatorSpec), [tfdbg](https://www.tensorflow.org/programmers_guide/debugger)
 
