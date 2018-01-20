@@ -19,7 +19,7 @@ class Model:
         self.mode = mode
         self.params = params
 
-        self.loss, self.train_op, self.eval_metric_ops, self.predictions = None, None, None, None
+        self.loss, self.train_op, self.metrics, self.predictions = None, None, None, None
         self._init_placeholder(features, labels)
         self.build_graph()
 
@@ -31,8 +31,8 @@ class Model:
             mode=mode,
             loss=self.loss,
             train_op=self.train_op,
-            eval_metric_ops=self._build_metric(),
-            predictions=self.predictions)
+            eval_metric_ops=self.metrics,
+            predictions={"prediction": self.predictions})
 
     def _init_placeholder(self, features, labels):
         self.inputs = features
@@ -40,24 +40,19 @@ class Model:
             self.inputs = features["input_data"]
         self.targets = labels
 
-        if self.mode == tf.estimator.ModeKeys.TRAIN:
-            # TODO: define train placeholder
-            pass
-        else:
-            # TODO: define eval/predict placeholder
-            pass
-
-
     def build_graph(self):
         graph = concrete_model.Graph(self.mode)
         output = graph.build(inputs=self.inputs)
 
-        if self.mode == tf.estimator.ModeKeys.TRAIN:
+        self._build_prediction(output)
+        if self.mode != tf.estimator.ModeKeys.PREDICT:
             self._build_loss(output)
             self._build_optimizer()
-        else:
-            # TODO: define eval/predict graph
-            pass
+            self._build_metric()
+
+    def _build_prediction(self, output):
+        # TODO: implments predictions
+        self.predictions = None
 
     def _build_loss(self, logits):
         with tf.variable_scope('loss'):
@@ -74,6 +69,5 @@ class Model:
 
     def _build_metric(self):
         # TODO: implements tf.metrics
-        #   example) return {"accuracy": tf.metrics.accuracy(labels, predicitions)}
-        return {}
-
+        #   example) {"accuracy": tf.metrics.accuracy(labels, predicitions)}
+        self.metrics = {}
