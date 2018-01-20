@@ -89,8 +89,8 @@ if __name__ == '__main__':
     # Print Config setting
     Config(args.config)
     print("Config: ", Config)
-    if Config.description:
-        print("Config Description")
+    if Config.get("description", None):
+        print("* Config Description")
         for key, value in Config.description.items():
             print(f" - {key}: {value}")
 

@@ -11,7 +11,11 @@ def send_message_to_slack(config_name):
     project_name = os.path.basename(os.path.abspath("."))
 
     data = {
-        "text": f"The learning is finished with {project_name} Project using {config_name} config."
+        "text": f"The learning is finished with *{project_name}* Project using `{config_name}` config."
     }
 
-    requests.post(Config.slack.webhook_url, data=json.dumps(data))
+    webhook_url = Config.slack.webhook_url
+    if webhook_url == "":
+        print(data["text"])
+    else:
+        requests.post(Config.slack.webhook_url, data=json.dumps(data))
